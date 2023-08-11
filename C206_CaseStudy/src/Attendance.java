@@ -31,5 +31,6 @@ public class Attendance {
 
     public char getAttendanceStatus() {
         return attendanceStatus;
+        
     }
 }
