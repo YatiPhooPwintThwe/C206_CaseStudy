@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class C206_CaseStudy {
 
@@ -44,6 +45,8 @@ public class C206_CaseStudy {
         // Create an empty ArrayList to store student data
         ArrayList<Student> studentList = new ArrayList<>();
         ArrayList<Attendance> attendanceList = new ArrayList<>();
+        ArrayList<Fee> feeList = new ArrayList<>();
+        
     
         int option = -99;
        
@@ -71,12 +74,12 @@ public class C206_CaseStudy {
             	optionE = Helper.readInt("Enter option for Enrolment > ");
             }else if (option == 6 )
             	optionF = Helper.readInt("Enter option for Attendance > ");
-                if (optionF == OPTION_ADDSTUDENT) {
-                	addStudent(studentList);
+                if (optionF == OPTION_ADDATTENDANCE) {
+                	addAttendance(studentList, attendanceList);
         		}else if (optionF == OPTION_VIEWSTUDENT) {
-        			displayStudentList(studentList);
-        		}else if (optionF == OPTION_DELETE) {
-        			deleteStudent(studentList); 	
+        			viewAttendance(attendanceList);
+        		}else if (option == OPTION_DELETE) {
+        			deleteAttendance(attendanceList); 	
     		}
             
         }
@@ -193,10 +196,6 @@ public class C206_CaseStudy {
              System.out.println(output);;
          }
 		return output;
-     
-		
-         
-		
 		
      }
 
@@ -324,5 +323,74 @@ public class C206_CaseStudy {
         }
 		return false;
     }
+    
+    public static void addFee(ArrayList<Student> studentList, ArrayList<Fee> feeList) {
+    	
+        String studentName = Helper.readString("Enter student's name > ");
+        String courseCode = Helper.readString("Enter course code > ");
+        String feeType = Helper.readString("Enter fee type (tuition/exam/others > ");
+        int amount = Helper.readInt("Enter fee amount > ");
+        String month = Helper.readString("Enter month > ");
+        String dueDate = Helper.readString("Enter due date (yyyy-MM-dd) > ");
+
+        // Check if the student exists
+        Student student = null;
+        for (Student s : studentList) {
+            if (s.getName().equalsIgnoreCase(studentName)) {
+                student = s;
+                break;
+            }
+        }
+
+        if (student != null) {
+            Fee fee = new Fee(courseCode, feeType, amount, month, dueDate);
+            feeList.add(fee);
+            System.out.println("Fee added successfully.");
+        } else {
+            System.out.println("Student not found. Fee not added.");
+        }
+     }
+        
+     // Method to view all fees
+        public static void viewAllFees(ArrayList<Fee> feeList) {
+            System.out.println("List of Fees:");
+            for (Fee fee : feeList) {
+            	System.out.println("Course Code: " + fee.getCourseCode());
+                System.out.println("Fee Type: " + fee.getFeeType());
+                System.out.println("Amount: " + fee.getAmount());
+                System.out.println("Month: " + fee.getMonth());
+                System.out.println("Due Date: " + fee.getDueDate());
+                System.out.println("---------------------------");
+            }
+        }
+
+        // Method to delete a fee
+        public static void deleteFee(ArrayList<Student> studentList, ArrayList<Fee> feeList) {
+            String studentName = Helper.readString("Enter student's name > ");
+
+            // Check if the student exists
+            Student student = null;
+            for (Student s : studentList) {
+                if (s.getName().equalsIgnoreCase(studentName)) {
+                    student = s;
+                    break;
+                }
+            }
+
+            if (student != null) {
+                String monthToDelete = Helper.readString("Enter the month of the fee paid > ");
+
+                for (int i = 0; i < feeList.size(); i++) {
+                    Fee fee = feeList.get(i);
+                    if (fee.getMonth().equalsIgnoreCase(monthToDelete)) {
+                        feeList.remove(i);
+                        System.out.println("Fee for " + student.getName() + " in month " + monthToDelete + " deleted.");
+                        return;
+                    }
+                }
+                System.out.println("No fee found for " + student.getName() + " in month " + monthToDelete);
+            } else {
+                System.out.println("Student not found. Cannot delete fee.");
+            }
     }
-//hello
+}
