@@ -7,6 +7,11 @@ public class C206_CaseStudy {
 	private static final int OPTION_ADDSTUDENT = 3;
 	private static final int OPTION_VIEWSTUDENT = 4;
 	private static final int OPTION_QUIT = 19;
+	private static final int OPTION_ADDATTENDANCE = 6;
+    private static final int OPTION_VIEWATTENDANCE = 7;
+    private static final int OPTION_DELETEATTENDANCE = 8;
+    
+    // ... (existing code)
 	
 	public static boolean isNameValid(String name) {
 	     String namePattern = "\\D{2,100}";
@@ -40,6 +45,7 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
         // Create an empty ArrayList to store student data
         ArrayList<Student> studentList = new ArrayList<>();
+        ArrayList<Attendance> attendanceList = new ArrayList<>();
     
         int option = -99;
        
@@ -56,7 +62,15 @@ public class C206_CaseStudy {
             }
             if (option == OPTION_DELETE) {
             	deleteStudent(studentList);
-            	
+            }
+            if (option == OPTION_ADDATTENDANCE) {
+                addAttendance(studentList, attendanceList);
+            }
+            if (option == OPTION_VIEWATTENDANCE) {
+                viewAttendance(attendanceList);
+            }
+            if (option == OPTION_DELETEATTENDANCE) {
+                deleteAttendance(attendanceList);
             }
             // Add other menu options and corresponding methods here.
         }
@@ -215,19 +229,49 @@ public class C206_CaseStudy {
 		return removed;
     }
 	
-	public static boolean deleteStudentHelper(ArrayList<Student> studentList, String nric) {
-		return false;
-		// TODO Auto-generated method stub
-		
-	}
-}
-		
-		
-     
-	
-		
-            
+    public static void addAttendance(ArrayList<Student> studentList, ArrayList<Attendance> attendanceList) {
+        // ... (similar input validation logic as addStudent method)
+
+        String studentName = Helper.readString("Enter student's name > ");
+        String courseCode = Helper.readString("Enter course code > ");
+        int lessonNo = Helper.readInt("Enter lesson number > ");
+        // You would need to handle datetime input here (e.g., using SimpleDateFormat)
+        // For simplicity, let's assume date is entered as a string
+        String date = Helper.readString("Enter date (yyyy-MM-dd) > ");
+        char attendanceStatus = Helper.readChar("Enter attendance status (P/A) > ");
         
+        // Check if the student exists
+        Student student = null;
+        for (Student s : studentList) {
+            if (s.getName().equalsIgnoreCase(studentName)) {
+                student = s;
+                break;
+            }
+        }
 
-      
+        if (student != null) {
+            Attendance attendance = new Attendance(student, courseCode, lessonNo, date, attendanceStatus);
+            attendanceList.add(attendance);
+            System.out.println("Attendance added successfully.");
+        } else {
+            System.out.println("Student not found. Attendance not added.");
+        }
+    }
 
+    public static void viewAttendance(ArrayList<Attendance> attendanceList) {
+        Helper.line(45, "*");
+        System.out.println("*****     VIEW ATTENDANCE    *****");
+        Helper.line(45, "*");
+
+        if (attendanceList.isEmpty()) {
+            System.out.println("No attendance records found.");
+        } else {
+            // Display attendance records here
+            // You can use a loop to iterate through attendanceList and print each record
+        }
+    }
+
+    public static void deleteAttendance(ArrayList<Attendance> attendanceList) {
+        // Similar logic as deleteStudent method, but for attendance
+    }
+}
