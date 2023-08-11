@@ -10,6 +10,12 @@ public class C206_CaseStudy {
 	private static final int OPTION_ADDATTENDANCE = 6;
     private static final int OPTION_VIEWATTENDANCE = 7;
     private static final int OPTION_DELETEATTENDANCE = 8;
+	private static int optionA;
+	private static int optionB;
+	private static int optionC;
+	private static int optionD;
+	private static int optionE;
+	private static int optionF;
     
     // ... (existing code)
 	
@@ -45,26 +51,6 @@ public class C206_CaseStudy {
         while (option != OPTION_QUIT) {
         	option = Helper.readInt("Enter option > ");
         	Helper.line(80, "-");
-        
-            if (option == OPTION_ADDSTUDENT) {
-                addStudent(studentList);
-                
-            }
-            if (option == OPTION_VIEWSTUDENT) {
-            	displayStudentList(studentList);
-            }
-            if (option == OPTION_DELETE) {
-            	deleteStudent(studentList);
-            }
-            if (option == OPTION_ADDATTENDANCE) {
-                addAttendance(studentList, attendanceList);
-            }
-            if (option == OPTION_VIEWATTENDANCE) {
-                viewAttendance(attendanceList);
-            }
-            if (option == OPTION_DELETEATTENDANCE) {
-                deleteAttendance(attendanceList);
-            }
 
             if (option == 1) {
             	optionA = Helper.readInt("Enter option for User > ");
@@ -72,7 +58,7 @@ public class C206_CaseStudy {
             	optionB = Helper.readInt("Enter option for Course > ");
             }else if (option == 3) {
             	optionC = Helper.readInt("Enter option for Student > ");
-            	if (optionC = OPTION_ADDSTUDENT) {
+            	if (optionC == OPTION_ADDSTUDENT) {
             		addStudent(studentList);
         		}else if (optionC == OPTION_VIEWSTUDENT) {
         			displayStudentList(studentList);
@@ -85,6 +71,14 @@ public class C206_CaseStudy {
             	optionE = Helper.readInt("Enter option for Enrolment > ");
             }else if (option == 6 )
             	optionF = Helper.readInt("Enter option for Attendance > ");
+                if (optionF == OPTION_ADDSTUDENT) {
+                	addStudent(studentList);
+        		}else if (optionF == OPTION_VIEWSTUDENT) {
+        			displayStudentList(studentList);
+        		}else if (optionF == OPTION_DELETE) {
+        			deleteStudent(studentList); 	
+    		}
+            
         }
     }
      
