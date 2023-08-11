@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-   
+ // Student > add,view,delete
 	private static final int OPTION_DELETE = 5;
 	private static final int OPTION_ADDSTUDENT = 3;
 	private static final int OPTION_VIEWSTUDENT = 4;
@@ -13,29 +13,21 @@ public class C206_CaseStudy {
 	  
 	     return name.matches(namePattern);
 	    }
-
 	public static boolean isNRICValid(String nric) {
 	     String nricPattern = "[STGFMstgm][0-9]{7}[A-Za-z]";
 	     
 	     return nric.matches(nricPattern);
 	    }
-	
 	public static boolean isEmailValid(String email) {
 	     String emailPattern = "^.+@.+\\.com$";
 	     return email.matches(emailPattern);
 	    }
-	
 	public static boolean isAgeValid(int age) {
 	    return age >= 5 && age <= 36;
 	}
-	
 	public static boolean isGradeValid(int grade) {
 	    return grade >= 1 && grade <= 12;
 	}
-
-	    	 
-	    
-	
 
 	public static void main(String[] args) {
         // Create an empty ArrayList to store student data
@@ -46,22 +38,30 @@ public class C206_CaseStudy {
        
         while (option != OPTION_QUIT) {
         	option = Helper.readInt("Enter option > ");
+        	Helper.line(80, "-");
         
-            if (option == OPTION_ADDSTUDENT) {
-                addStudent(studentList);
-                
-            }
-            if (option == OPTION_VIEWSTUDENT) {
-            	displayStudentList(studentList);
-            }
-            if (option == OPTION_DELETE) {
-            	deleteStudent(studentList);
-            	
-            }
+            if (option == 1) {
+            	optionA = Helper.readInt("Enter option for User > ");
+            }else if (option == 2) {
+            	optionB = Helper.readInt("Enter option for Course > ");
+            }else if (option == 3) {
+            	optionC = Helper.readInt("Enter option for Student > ");
+            	if (optionC = OPTION_ADDSTUDENT) {
+            		addStudent(studentList);
+        		}else if (optionC == OPTION_VIEWSTUDENT) {
+        			displayStudentList(studentList);
+        		}else if (optionC == OPTION_DELETE) {
+        			deleteStudent(studentList); 	
+        		}
+            }else if (option == 4) {
+            	optionD = Helper.readInt("Enter option for Fee > ");
+            }else if (option == 5) {
+            	optionE = Helper.readInt("Enter option for Enrolment > ");
+            }else if (option == 6 )
+            	optionF = Helper.readInt("Enter option for Attendance > ");
             // Add other menu options and corresponding methods here.
         }
     }
-   
      
 	public static void addStudent(ArrayList<Student> studentList) {
 	    boolean validName = false;
