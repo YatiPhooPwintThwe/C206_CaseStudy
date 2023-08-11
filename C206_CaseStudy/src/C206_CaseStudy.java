@@ -55,9 +55,11 @@ public class C206_CaseStudy {
             	displayStudentList(studentList);
             }
             if (option == OPTION_DELETE) {
-            	deleteStudent(studentList);
+            	deleteStudent(studentList,null);
             	
             }
+          
+            	
             // Add other menu options and corresponding methods here.
         }
     }
@@ -72,9 +74,9 @@ public class C206_CaseStudy {
 	    boolean isFound = false;
 	    String finalNric = ""; // Move the declaration outside the loop
 
-	    Helper.line(45, "*");
-	    System.out.println("*****     ADDING NEW STUDENT    *****");
-	    Helper.line(45, "*");
+	   
+	    C206_CaseStudy.setHeader("ADDING NEW STUDENT");
+	   
 
 	    while (!validName) {
 	        String name = Helper.readString("Enter your name > ");
@@ -108,7 +110,8 @@ public class C206_CaseStudy {
 	            String nric = Helper.readString("Enter your NRIC > ");
 	            int foundIndex = -1; // Initialize the foundIndex to -1
 	            for (int i = 0; i < studentList.size(); i++) {
-	                if (nric.equalsIgnoreCase(studentList.get(i).getNric())) {
+	                String nric2 = studentList.get(i).getNric();
+					if (nric.equalsIgnoreCase(nric2)) {
 	                    foundIndex = i;
 	                    break;
 	                }
@@ -153,15 +156,26 @@ public class C206_CaseStudy {
 
     	    
 
-     public static String displayStudentList(ArrayList<Student> studentList) {
+     /**
+	 * @param string
+	 */
+	private static void setHeader(String header) {
+		Helper.line(45, "-");
+		System.out.println(header);
+		Helper.line(45, "-");
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static String displayStudentList(ArrayList<Student> studentList) {
     	 String output = "";
 
          if (studentList.isEmpty()) {
              System.out.println("No students found.");
          } else {
-             Helper.line(45, "*");
-             System.out.println("*****     STUDENT  INFORMATION    *****");
-             Helper.line(45, "*");
+            
+             C206_CaseStudy.setHeader("STUDENT INFORMATION");
+           
              output = String.format("%-20s %-5s %-25s %-12s %-5s\n", "Student Name", "Age", "Email", "NRIC", "Grade");
              for (int i = 0; i < studentList.size(); i++) {
                  output += String.format("%-20s %-5s %-25s %-12s %-5s\n",
@@ -182,15 +196,16 @@ public class C206_CaseStudy {
      }
 
 
-    public static boolean deleteStudent(ArrayList<Student> studentList) {
-    	Helper.line(45, "*");
-        System.out.println("*****     DELETING STUDENT    *****");
-        Helper.line(45, "*");
+    public static boolean deleteStudent(ArrayList<Student> studentList, String nric) {
+    
+    	C206_CaseStudy.setHeader("DELETING STUDENT");
+ 
         String nricToDelete = Helper.readString("Enter student's NRIC to delete > ");
         boolean removed = false;
 
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getNric().equalsIgnoreCase(nricToDelete)) {
+            String nric2 = studentList.get(i).getNric();
+			if (nric2.equalsIgnoreCase(nricToDelete)) {
                 String studentName = studentList.get(i).getName();
                 char delInfo = Helper.readChar("\nConfirm deletion of " + studentName + "? (y/n) > ");
                 if (delInfo == 'y' || delInfo == 'Y') {
@@ -214,12 +229,18 @@ public class C206_CaseStudy {
         }
 		return removed;
     }
-	
+
+	/**
+	 * @param studentList
+	 * @param string
+	 * @return
+	 */
 	public static boolean deleteStudentHelper(ArrayList<Student> studentList, String nric) {
-		return false;
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
+	
+	
 }
 		
 		
