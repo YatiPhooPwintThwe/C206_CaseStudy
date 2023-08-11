@@ -23,7 +23,7 @@ public class Student {
 	    
 
 	    // Constructor to initialize a new Student object
-	    public Student( String name, int age, String email, String nric, int grade) {
+	    public Student( String name, String nric, int age, int grade, String email) {
 	        
 	        this.name = name;
 	        this.age = age;
