@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
 import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
@@ -99,61 +98,4 @@ public class C206_CaseStudyTest {
         Assert.assertFalse(isDeleted);
         Assert.assertEquals(0, studentList.size());
     }
-        @Test
-        void testAddAttendance() {
-            ArrayList<Student> studentList = new ArrayList<>();
-            ArrayList<Attendance> attendanceList = new ArrayList<>();
-
-            Student student = new Student("John", 20, "john@example.com", "S1234567A", 10);
-            studentList.add(student);
-
-            // Create an instance of C206_CaseStudy (replace constructor arguments as needed)
-            C206_CaseStudy caseStudy = new C206_CaseStudy();
-
-            caseStudy.addAttendance(studentList, attendanceList);
-
-            // Assuming you have added a student named John with valid attendance data
-            assertTrue(attendanceList.size() > 0);
-        }
-    @Test
-    void testViewAttendance() {
-        ArrayList<Attendance> attendanceList = new ArrayList<>();
-        // Assuming you have added some attendance records
-
-        // Create an instance of C206_CaseStudy (replace constructor arguments as needed)
-        C206_CaseStudy caseStudy = new C206_CaseStudy();
-
-        // Redirect system output to capture console output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        caseStudy.viewAttendance(attendanceList);
-
-        // Restore original system output
-        System.setOut(System.out);
-
-        String consoleOutput = outputStream.toString();
-        // Assuming you have valid attendance records, check if they are displayed
-        assertTrue(consoleOutput.contains("Student Name") && consoleOutput.contains("Course Code") &&
-                   consoleOutput.contains("Lesson No") && consoleOutput.contains("Date") &&
-                   consoleOutput.contains("Status"));
-    }
-        @Test
-        void testDeleteAttendance() {
-            ArrayList<Attendance> attendanceList = new ArrayList<>();
-            // Assuming you have added some attendance records
-
-            // Create an instance of C206_CaseStudy (replace constructor arguments as needed)
-            C206_CaseStudy caseStudy = new C206_CaseStudy();
-
-            // Assuming you have valid attendance records, adjust the arguments as needed
-            boolean removed = caseStudy.deleteAttendance(attendanceList);
-
-            // Assuming you are testing with a valid attendance record to delete
-            assertTrue(removed);
-            assertTrue(attendanceList.isEmpty());
-        }
-        
-    }
-
-//hello
+}

@@ -12,53 +12,52 @@ import java.util.Date;
  *
  */
 public class Fee {
-	
-	private String course_code;
-	private String fee_type;
-	private int amount;
-	private String month;
-	private Date due_date;
-	
-	public Fee (String course_code, String fee_type, int amount, String month, Date due_date) {
-        this.course_code = course_code;
-        this.fee_type = fee_type;
-        this.amount = amount;
-        this.month= month;
-        this.due_date = due_date;
-	}
+	  
+	  private String courseCode;
+	  private String feeType;
+	  private int amount;
+	  private String month;
+	  private String dueDate;
+	  
+	  public Fee (String courseCode, String feeType, int amount, String month, String dueDate) {
+	        this.courseCode = courseCode;
+	        this.feeType = feeType;
+	        this.amount = amount;
+	        this.month= month;
+	        this.dueDate = dueDate;
+	  }
 
-	public String getCourse_code() {
-		return course_code;
-	}
-	public void setCourse_code(String course_code) {
-		this.course_code = course_code;
-	}
-	public String getFee_type() {
-		return fee_type;
-	}
-	public void setFee_type(String fee_type) {
-		this.fee_type = fee_type;
-	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-	public String getMonth() {
-		return month;
-	}
-	public void setMonth(String month) {
-		this.month = month;
-	}
-	public Date getDue_date() {
-		return due_date;
-	}
-	public void setDue_date(Date due_date) {
-		this.due_date = due_date;
-	}
-	
+	  public String getCourseCode() {
+	    return courseCode;
+	  }
+	  public void setCourseCode(String courseCode) {
+	    this.courseCode = courseCode;
+	  }
+	  public String getFeeType() {
+	    return feeType;
+	  }
+	  public void setFeeType(String feeType) {
+	    this.feeType = feeType;
+	  }
+	  public int getAmount() {
+	    return amount;
+	  }
+	  public void setAmount(int amount) {
+	    this.amount = amount;
+	  }
+	  public String getMonth() {
+	    return month;
+	  }
+	  public void setMonth(String month) {
+	    this.month = month;
+	  }
+	  public String getDueDate() {
+	    return dueDate;
+	  }
+	  public void setDue_date(String dueDate) {
+	    this.dueDate = dueDate;
+	  }
+	  
 
 
-}
-//hello
+	}
