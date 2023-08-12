@@ -2,50 +2,49 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-   
+ // Student > add,view,delete
 	private static final int OPTION_DELETE = 5;
 	private static final int OPTION_ADDSTUDENT = 3;
 	private static final int OPTION_VIEWSTUDENT = 4;
 	private static final int OPTION_QUIT = 19;
+	private static final int OPTION_ADDATTENDANCE = 6;
+    private static final int OPTION_VIEWATTENDANCE = 7;
+    private static final int OPTION_DELETEATTENDANCE = 8;
+    
+    // ... (existing code)
 	
 	public static boolean isNameValid(String name) {
 	     String namePattern = "\\D{2,100}";
 	  
 	     return name.matches(namePattern);
 	    }
-
 	public static boolean isNRICValid(String nric) {
 	     String nricPattern = "[STGFMstgm][0-9]{7}[A-Za-z]";
 	     
 	     return nric.matches(nricPattern);
 	    }
-	
 	public static boolean isEmailValid(String email) {
 	     String emailPattern = "^.+@.+\\.com$";
 	     return email.matches(emailPattern);
 	    }
-	
 	public static boolean isAgeValid(int age) {
 	    return age >= 5 && age <= 36;
 	}
-	
 	public static boolean isGradeValid(int grade) {
 	    return grade >= 1 && grade <= 12;
 	}
 
-	    	 
-	    
-	
-
 	public static void main(String[] args) {
         // Create an empty ArrayList to store student data
         ArrayList<Student> studentList = new ArrayList<>();
+        ArrayList<Attendance> attendanceList = new ArrayList<>();
     
         int option = -99;
        
        
         while (option != OPTION_QUIT) {
         	option = Helper.readInt("Enter option > ");
+        	Helper.line(80, "-");
         
             if (option == OPTION_ADDSTUDENT) {
                 addStudent(studentList);
@@ -55,15 +54,50 @@ public class C206_CaseStudy {
             	displayStudentList(studentList);
             }
             if (option == OPTION_DELETE) {
+<<<<<<< HEAD
             	deleteStudent(studentList,null);
             	
+=======
+            	deleteStudent(studentList);
+>>>>>>> branch 'master' of https://github.com/YatiPhooPwintThwe/C206_CaseStudy.git
             }
+<<<<<<< HEAD
           
             	
             // Add other menu options and corresponding methods here.
+=======
+            if (option == OPTION_ADDATTENDANCE) {
+                addAttendance(studentList, attendanceList);
+            }
+            if (option == OPTION_VIEWATTENDANCE) {
+                viewAttendance(attendanceList);
+            }
+            if (option == OPTION_DELETEATTENDANCE) {
+                deleteAttendance(attendanceList);
+            }
+
+            if (option == 1) {
+            	optionA = Helper.readInt("Enter option for User > ");
+            }else if (option == 2) {
+            	optionB = Helper.readInt("Enter option for Course > ");
+            }else if (option == 3) {
+            	optionC = Helper.readInt("Enter option for Student > ");
+            	if (optionC = OPTION_ADDSTUDENT) {
+            		addStudent(studentList);
+        		}else if (optionC == OPTION_VIEWSTUDENT) {
+        			displayStudentList(studentList);
+        		}else if (optionC == OPTION_DELETE) {
+        			deleteStudent(studentList); 	
+        		}
+            }else if (option == 4) {
+            	optionD = Helper.readInt("Enter option for Fee > ");
+            }else if (option == 5) {
+            	optionE = Helper.readInt("Enter option for Enrolment > ");
+            }else if (option == 6 )
+            	optionF = Helper.readInt("Enter option for Attendance > ");
+>>>>>>> branch 'master' of https://github.com/YatiPhooPwintThwe/C206_CaseStudy.git
         }
     }
-   
      
 	public static void addStudent(ArrayList<Student> studentList) {
 	    boolean validName = false;
@@ -229,6 +263,7 @@ public class C206_CaseStudy {
         }
 		return removed;
     }
+<<<<<<< HEAD
 
 	/**
 	 * @param studentList
@@ -248,7 +283,98 @@ public class C206_CaseStudy {
 	
 		
             
+=======
+	
+    public static void addAttendance(ArrayList<Student> studentList, ArrayList<Attendance> attendanceList) {
+        // ... (similar input validation logic as addStudent method)
+
+        String studentName = Helper.readString("Enter student's name > ");
+        String courseCode = Helper.readString("Enter course code > ");
+        int lessonNo = Helper.readInt("Enter lesson number > ");
+        // You would need to handle datetime input here (e.g., using SimpleDateFormat)
+        // For simplicity, let's assume date is entered as a string
+        String date = Helper.readString("Enter date (yyyy-MM-dd) > ");
+        char attendanceStatus = Helper.readChar("Enter attendance status (P/A) > ");
+>>>>>>> branch 'master' of https://github.com/YatiPhooPwintThwe/C206_CaseStudy.git
         
+        // Check if the student exists
+        Student student = null;
+        for (Student s : studentList) {
+            if (s.getName().equalsIgnoreCase(studentName)) {
+                student = s;
+                break;
+            }
+        }
 
-      
+        if (student != null) {
+            Attendance attendance = new Attendance(student, courseCode, lessonNo, date, attendanceStatus);
+            attendanceList.add(attendance);
+            System.out.println("Attendance added successfully.");
+        } else {
+            System.out.println("Student not found. Attendance not added.");
+        }
+    }
 
+    public static void viewAttendance(ArrayList<Attendance> attendanceList) {
+        Helper.line(45, "*");
+        System.out.println("*****     VIEW ATTENDANCE    *****");
+        Helper.line(45, "*");
+
+        if (attendanceList.isEmpty()) {
+            System.out.println("No attendance records found.");
+        } else {
+        	String format = "%-20s %-15s %-10s %-12s %-10s%n";
+            System.out.format(format, "Student Name", "Course Code", "Lesson No", "Date", "Status");
+            Helper.line(70, "-");
+
+            for (Attendance attendance : attendanceList) {
+                System.out.format(format,
+                        attendance.getStudent().getName(),
+                        attendance.getCourseCode(),
+                        attendance.getLessonNo(),
+                        attendance.getDate(),
+                        attendance.getAttendanceStatus());
+        }
+        }
+        
+    }
+
+    public static boolean deleteAttendance(ArrayList<Attendance> attendanceList) {
+    	Helper.line(45, "*");
+        System.out.println("*****     DELETE ATTENDANCE    *****");
+        Helper.line(45, "*");
+        
+        String studentName = Helper.readString("Enter student's name > ");
+        String courseCode = Helper.readString("Enter course code > ");
+        int lessonNo = Helper.readInt("Enter lesson number > ");
+        String date = Helper.readString("Enter date (yyyy-MM-dd) > ");
+        
+        Attendance attendanceToDelete = null;
+
+        for (Attendance attendance : attendanceList) {
+            if (attendance.getStudent().getName().equalsIgnoreCase(studentName)
+                && attendance.getCourseCode().equalsIgnoreCase(courseCode)
+                && attendance.getLessonNo() == lessonNo
+                && attendance.getDate().equals(date)) {
+                attendanceToDelete = attendance;
+                break;
+            }
+        }
+
+        if (attendanceToDelete != null) {
+            char delInfo = Helper.readChar("\nConfirm deletion of attendance? (y/n) > ");
+            if (delInfo == 'y' || delInfo == 'Y') {
+                attendanceList.remove(attendanceToDelete);
+                System.out.println("Attendance deleted successfully.\n");
+            } else if (delInfo == 'n' || delInfo == 'N') {
+                System.out.println("Attendance is not deleted.\n");
+            } else {
+                System.out.println("Invalid option. Deletion canceled.\n");
+            }
+        } else {
+            System.out.println("Attendance record not found.\n");
+        }
+		return false;
+    }
+    }
+//hello
