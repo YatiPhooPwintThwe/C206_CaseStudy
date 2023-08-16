@@ -165,4 +165,142 @@ public class C206_CaseStudyTest {
 
     }
     //maha
+    
+    @Test
+    public void testAddUser_Normal() {
+        assertNotNull("Check if there is a valid teacher ArrayList to add to", teachers);
+     
+        teachers.add(new Teacher("Ms. Kong", "S2345671H", 25, "Mathematics", "kong25@edu.com"));
+        assertEquals("Check that teacher ArrayList size is 1", 1, teachers.size());
+        assertEquals("Check that the teacher's name is correct", "Ms. Kong", teachers.get(0).getTname());
+    }
+     
+    --------------------------------------------------------------------------
+     
+    @Test
+    public void testAddUser_InvalidNRIC() {
+        assertNotNull("Check if there is a valid teacher ArrayList to add to", teachers);
+     
+        teachers.add(new Teacher("Mr. Smith", "12345678", 30, "Science", "smith30@edu.com"));
+        assertEquals("Check that teacher ArrayList size is 0", 0, teachers.size());
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    @Test
+    public void testAddUser_MaximumLimit() {
+        assertNotNull("Check if there is a valid teacher ArrayList to add to", teachers);
+     
+        for (int i = 1; i <= C206_CaseStudy.MAX_TEACHERS; i++) {
+            teachers.add(new Teacher("Teacher " + i, "S" + i + "1234567H", 30, "Subject", "teacher" + i + "@edu.com"));
+        }
+     
+        assertEquals("Check that teacher ArrayList size is at maximum limit", C206_CaseStudy.MAX_TEACHERS, teachers.size());
+    }
+     
+    ---------------------------------------------------------------------------
+     (VIEW)
+     
+    @Test
+    public void testViewUser_ExistingUsers() {
+        assertNotNull("Check if there is a valid teacher ArrayList to view", teachers);
+     
+        teachers.add(new Teacher("Ms. Lee", "S3456789Z", 28, "English", "lee28@edu.com"));
+        teachers.add(new Teacher("Mr. Tan", "S4567890X", 32, "History", "tan32@edu.com"));
+     
+        // Redirect system output to capture console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+     
+        C206_CaseStudy.viewUsers(students, teachers);
+     
+        // Restore original system output
+        System.setOut(System.out);
+     
+        String consoleOutput = outputStream.toString();
+        assertTrue(consoleOutput.contains("Ms. Lee") && consoleOutput.contains("Mr. Tan"));
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    @Test
+    public void testViewUser_EmptyList() {
+        assertNotNull("Check if there is a valid teacher ArrayList to view", teachers);
+     
+        // Redirect system output to capture console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+     
+        C206_CaseStudy.viewUsers(students, teachers);
+     
+        // Restore original system output
+        System.setOut(System.out);
+     
+        String consoleOutput = outputStream.toString();
+        assertTrue(consoleOutput.contains("No users available."));
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    @Test
+    public void testViewUser_MaximumLimit() {
+        assertNotNull("Check if there is a valid teacher ArrayList to view", teachers);
+     
+        for (int i = 1; i <= C206_CaseStudy.MAX_TEACHERS; i++) {
+            teachers.add(new Teacher("Teacher " + i, "S" + i + "1234567H", 30, "Subject", "teacher" + i + "@edu.com"));
+        }
+     
+        // Redirect system output to capture console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+     
+        C206_CaseStudy.viewUsers(students, teachers);
+     
+        // Restore original system output
+        System.setOut(System.out);
+     
+        String consoleOutput = outputStream.toString();
+        assertTrue(consoleOutput.contains("Teacher 1") && consoleOutput.contains("Teacher " + C206_CaseStudy.MAX_TEACHERS));
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    (DELETE)
+     
+    @Test
+    public void testDeleteUser_ExistingUser() {
+        assertNotNull("Check if there is a valid teacher ArrayList to delete from", teachers);
+     
+        Teacher teacher = new Teacher("Ms. Lim", "S5678901A", 29, "Geography", "lim29@edu.com");
+        teachers.add(teacher);
+     
+        boolean isDeleted = C206_CaseStudy.deleteUserFromLists(students, teachers, teacher.getTname(), teacher.getTnric());
+        assertTrue(isDeleted);
+        assertEquals("Check that teacher ArrayList size is 0", 0, teachers.size());
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    @Test
+    public void testDeleteUser_NonexistentUser() {
+        assertNotNull("Check if there is a valid teacher ArrayList to delete from", teachers);
+     
+        boolean isDeleted = C206_CaseStudy.deleteUserFromLists(students, teachers, "Nonexistent Teacher", "S1234567Z");
+        assertFalse(isDeleted);
+    }
+     
+    ---------------------------------------------------------------------------
+     
+    @Test
+    public void testDeleteUser_LastUser() {
+        assertNotNull("Check if there is a valid teacher ArrayList to delete from", teachers);
+     
+        Teacher teacher = new Teacher("Mr. Lee", "S6789012B", 35, "Physics", "lee35@edu.com");
+        teachers.add(teacher);
+     
+        boolean isDeleted = C206_CaseStudy.deleteUserFromLists(students, teachers, teacher.getTname(), teacher.getTnric());
+        assertTrue(isDeleted);
+        assertEquals("Check that teacher ArrayList size is 0", 0, teachers.size());
+    }
+
 }

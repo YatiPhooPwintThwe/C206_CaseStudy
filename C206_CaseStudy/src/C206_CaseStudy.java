@@ -75,6 +75,201 @@ public class C206_CaseStudy {
             // Add other menu options and corresponding methods here.
         }
     }
+	
+	private void addUsers(ArrayList<Teacher> teachers) { 
+
+        int choice; 
+
+  
+
+        do { 
+
+            System.out.println("--------------------"); 
+
+            System.out.println("ADD USER"); 
+
+            System.out.println("--------------------"); 
+
+
+            System.out.println("1. Add Teacher Account"); 
+
+            System.out.println("3. Back"); 
+
+            choice = Helper.readInt("Enter an option > "); 
+
+  
+
+            if (choice == 1) { 
+
+              addTeacher(teachers); 
+
+            }
+
+        } while (choice != 3); 
+
+    } 
+
+  
+
+   
+
+    private void addTeacher(ArrayList<Teacher> teachers) { 
+
+        String tname = validateAlphabets("Enter teacher's name > "); 
+
+        int tage = validateNumbers("Enter teacher's age > "); 
+
+        String tnric = validateNRIC("Enter teacher's NRIC > "); 
+
+        String tcourse = Helper.readString("Enter teacher's course > "); 
+
+        String temail = Helper.readString("Enter teacher's email > "); 
+
+  
+
+        teachers.add(new Teacher(tname, tnric, tage, tcourse, temail)); 
+
+        System.out.println("Teacher added successfully!"); 
+
+    } 
+
+  
+
+    private String validateAlphabets(String message) { 
+
+        while (true) {
+
+String input = Helper.readString(message); 
+
+            if (input.matches("[A-Za-z ]+")) { 
+
+                return input; 
+
+            } else { 
+
+                System.out.println("Alphabets Only!"); 
+
+            } 
+
+        } 
+
+    } 
+
+  
+
+    private int validateNumbers(String message) { 
+
+        while (true) { 
+
+            String input = Helper.readString(message); 
+
+            if (input.matches("\\d+")) { 
+
+                return Integer.parseInt(input); 
+
+            } else { 
+
+                System.out.println("Numbers Only!"); 
+
+            } 
+
+        } 
+
+    } 
+
+  
+
+    private String validateNRIC(String message) { 
+
+        while (true) { 
+
+            String input = Helper.readString(message); 
+
+            if (input.matches("[STGFMA][0-9]{7}[A-Za-z]")) { 
+
+                return input; 
+
+            } else { 
+
+                System.out.println("Invalid NRIC Format!"); 
+
+            } 
+
+        } 
+
+    } 
+
+  
+
+    private void viewUsers( ArrayList<Teacher> teachers) { 
+
+        System.out.println("--------------------"); 
+
+        System.out.println("VIEW ALL USERS"); 
+
+        System.out.println("--------------------"); 
+
+       
+
+        System.out.println("Teachers:"); 
+
+        for (Teacher teacher : teachers) { 
+
+            System.out.println("Name: " + teacher.getTname() + ", NRIC: " + teacher.getTnric() + ", Age: " + teacher.getTage() + ", Course: " + teacher.getTcourse() + ", Email: " + teacher.getTemail()); 
+
+        } 
+
+    } 
+
+  
+
+    private void deleteUser(ArrayList<Teacher> teachers) { 
+
+        System.out.println("--------------------"); 
+
+        System.out.println("DELETE USER"); 
+
+        System.out.println("--------------------"); 
+
+        String name = Helper.readString("Enter name of user to delete > "); 
+
+        String nric = Helper.readString("Enter NRIC of user to delete > "); 
+
+        boolean userDeleted = deleteUserFromLists(teachers, name, nric); 
+
+        if (userDeleted) { 
+
+            System.out.println("User deleted successfully!"); 
+
+        } else { 
+
+            System.out.println("User not found or incorrect personal details."); 
+
+        } 
+
+    } 
+
+  
+
+    private boolean deleteUserFromLists(ArrayList<Teacher> teachers, String name, String nric) { 
+
+      
+
+        boolean teacherDeleted = teachers.removeIf(teacher -> teacher.getTname().equals(name) && teacher.getTnric().equals(nric)); 
+
+        return teacherDeleted; 
+
+    } 
+
+ 
+
+
+ 
+/**
+ * @return
+ */
+	
+
    
      
 	public static void addStudent(ArrayList<Student> studentList) {
