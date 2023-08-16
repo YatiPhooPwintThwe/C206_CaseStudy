@@ -3,9 +3,15 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
    
-	private static final int OPTION_DELETE = 5;
-	private static final int OPTION_ADDSTUDENT = 3; 
-	private static final int OPTION_VIEWSTUDENT = 4; 
+	/**
+	 * 
+	 */
+	private static final int OPTION_DELETEFEE = 9;
+	private static final int OPTION_VIEWFEE = 8;
+	private static final int OPTION_ADDFEE = 7;
+	private static final int OPTION_DELETE = 6;
+	private static final int OPTION_ADDSTUDENT = 4; 
+	private static final int OPTION_VIEWSTUDENT = 5; 
 	private static final int OPTION_QUIT = 19;
 	
 	public static boolean isNameValid(String name) {
@@ -37,6 +43,7 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
         // Create an empty ArrayList to store student data
         ArrayList<Student> studentList = new ArrayList<>();
+        ArrayList<Fee> feeList = new ArrayList<>();
     
         int option = -99;
        
@@ -54,6 +61,16 @@ public class C206_CaseStudy {
             if (option == OPTION_DELETE) {
             	deleteStudent(studentList);
             	
+            }
+            if (option == OPTION_ADDFEE) {
+            	addFee(feeList);
+            	
+            }
+            if (option == OPTION_VIEWFEE) {
+            	viewFeesByStudent(feeList);
+            }
+            if (option == OPTION_DELETEFEE) {
+            	deleteFee(feeList);
             }
             // Add other menu options and corresponding methods here.
         }
@@ -145,10 +162,7 @@ public class C206_CaseStudy {
 	    }
 	    // Return a success message
 	    System.out.println("Student added successfully.");
-	}
-
-
-    	    
+	}   
 
      public static String displayStudentList(ArrayList<Student> studentList) {
     	 String output = "";
@@ -171,13 +185,7 @@ public class C206_CaseStudy {
              System.out.println(output);;
          }
 		return output;
-     
-		
-         
-		
-		
      }
-
 
     public static boolean deleteStudent(ArrayList<Student> studentList) {
     	Helper.line(45, "*");
@@ -217,7 +225,8 @@ public class C206_CaseStudy {
 		// TODO Auto-generated method stub
 		
 	}
-	public static void addFee(ArrayList<Student> studentList, ArrayList<Fee> feeList) {
+	//add fee
+	public static void addFee(ArrayList<Fee> feeList) {
         String studentName = Helper.readString("Enter student's name > ");
         String nric = Helper.readString("Enter NRIC > ");
         String courseCode = Helper.readString("Enter course code > ");
@@ -226,17 +235,11 @@ public class C206_CaseStudy {
         String month = Helper.readString("Enter month > ");
         String dueDate = Helper.readString("Enter due date (yyyy-MM-dd) > ");
 
-        Student student = findStudent(studentList, nric);
-
-        if (student != null) {
-            Fee fee = new Fee(studentName, nric, courseCode, feeType, amount, month, dueDate);
-            feeList.add(fee);
-            System.out.println("Fee added successfully.");
-        } else {
-            System.out.println("Student not found. Fee not added.");
-        }
+        Fee fee = new Fee(studentName, nric, courseCode, feeType, amount, month, dueDate);
+        feeList.add(fee);
+        System.out.println("Fee added successfully.");
     }
-
+    //view fee
     public static void viewFeesByStudent(ArrayList<Fee> feeList) {
         String studentName = Helper.readString("Enter student's name > ");
         boolean found = false;
@@ -244,6 +247,7 @@ public class C206_CaseStudy {
         System.out.println("List of Fees for " + studentName + ":");
         for (Fee fee : feeList) {
             if (fee.getStudentName().equalsIgnoreCase(studentName)) {
+                System.out.println("NRIC: " + fee.getNric());
                 System.out.println("Course Code: " + fee.getCourseCode());
                 System.out.println("Fee Type: " + fee.getFeeType());
                 System.out.println("Amount: " + fee.getAmount());
@@ -258,36 +262,25 @@ public class C206_CaseStudy {
             System.out.println("No fees found for " + studentName);
         }
     }
-
-    public static void deleteFee(ArrayList<Student> studentList, ArrayList<Fee> feeList) {
+    // delete fee
+    public static void deleteFee(ArrayList<Fee> feeList) {
         String nric = Helper.readString("Enter student's NRIC > ");
+        String monthToDelete = Helper.readString("Enter the month of the fee paid > ");
 
-        Student student = findStudent(studentList, nric);
-
-        if (student != null) {
-            String monthToDelete = Helper.readString("Enter the month of the fee paid > ");
-
-            for (int i = 0; i < feeList.size(); i++) {
-                Fee fee = feeList.get(i);
-                if (fee.getNric().equalsIgnoreCase(nric) && fee.getMonth().equalsIgnoreCase(monthToDelete)) {
-                    feeList.remove(i);
-                    System.out.println("Fee for " + student.getName() + " in month " + monthToDelete + " deleted.");
-                    return;
-                }
-            }
-            System.out.println("No fee found for " + student.getName() + " in month " + monthToDelete);
-        } else {
-            System.out.println("Student not found. Cannot delete fee.");
-        }
-    }
-
-    private static Student findStudent(ArrayList<Student> studentList, String nric) {
-        for (Student student : studentList) {
-            if (student.getNric().equalsIgnoreCase(nric)) {
-                return student;
+        boolean found = false;
+        for (int i = 0; i < feeList.size(); i++) {
+            Fee fee = feeList.get(i);
+            if (fee.getNric().equalsIgnoreCase(nric) && fee.getMonth().equalsIgnoreCase(monthToDelete)) {
+                feeList.remove(i);
+                System.out.println("Fee for " + fee.getStudentName() + " in month " + monthToDelete + " deleted.");
+                found = true;
+                break;
             }
         }
-        return null;
+
+        if (!found) {
+            System.out.println("No fee found for the specified student and month.");
+        }
     }
 
 }
