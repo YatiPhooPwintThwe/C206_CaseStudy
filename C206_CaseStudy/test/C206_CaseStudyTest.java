@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -98,4 +100,5 @@ public class C206_CaseStudyTest {
         Assert.assertFalse(isDeleted);
         Assert.assertEquals(0, studentList.size());
     }
+    
 }
