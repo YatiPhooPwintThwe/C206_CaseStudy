@@ -219,7 +219,7 @@ public class C206_CaseStudy {
         }
 		return removed;
     }
-	
+	//maha
 	public static boolean deleteStudentHelper(ArrayList<Student> studentList, String nric) {
 		return false;
 		// TODO Auto-generated method stub
